@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CineCompare</string>
+    <string name="compare_prices">Compare Prices</string>
+    <string name="book_now">Book Now</string>
+    <string name="cheapest">Cheapest</string>
+    <string name="save">Save</string>
+    <string name="now_showing">Now Showing</string>
+    <string name="coming_soon">Coming Soon</string>
+    <string name="search_movies">Search movies, cinemas…</string>
+    <string name="select_city">Select City</string>
+    <string name="nearby_cinemas">Nearby Cinemas</string>
+    <string name="no_shows_found">No shows found for this date</string>
+    <string name="filling_fast">Filling Fast!</string>
+    <string name="almost_full">Almost Full!</string>
+    <string name="housefull">Housefull</string>
+</resources>
