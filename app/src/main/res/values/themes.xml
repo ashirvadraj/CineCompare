@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.CineCompare" parent="Theme.Material3.DayNight.NoActionBar" />
+    <style name="Theme.CineCompare" parent="android:Theme.Material.NoActionBar" />
     <style name="Theme.CineCompare.SplashScreen" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">#1A1A2E</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>

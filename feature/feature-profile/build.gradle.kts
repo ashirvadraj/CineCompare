@@ -28,5 +28,7 @@ dependencies {
     implementation(libs.navigation.compose)
     implementation(libs.hilt.navigation.compose)
     implementation(libs.workmanager.ktx)
+    implementation(libs.hilt.work)
+    ksp(libs.hilt.work.compiler)
     implementation(libs.datastore.preferences)
 }

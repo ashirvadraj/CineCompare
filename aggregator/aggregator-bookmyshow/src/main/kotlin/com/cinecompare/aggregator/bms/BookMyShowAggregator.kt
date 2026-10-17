@@ -10,9 +10,7 @@ import okhttp3.Request
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import javax.inject.Inject
-
-class BookMyShowAggregator @Inject constructor(
+class BookMyShowAggregator(
     private val okHttpClient: OkHttpClient
 ) : MovieAggregator {
 

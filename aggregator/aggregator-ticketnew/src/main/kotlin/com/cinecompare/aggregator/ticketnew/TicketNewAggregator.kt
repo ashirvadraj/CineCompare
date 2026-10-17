@@ -9,9 +9,7 @@ import okhttp3.Request
 import org.jsoup.Jsoup
 import java.time.LocalDate
 import java.time.LocalDateTime
-import javax.inject.Inject
-
-class TicketNewAggregator @Inject constructor(
+class TicketNewAggregator(
     private val okHttpClient: OkHttpClient
 ) : MovieAggregator {
 

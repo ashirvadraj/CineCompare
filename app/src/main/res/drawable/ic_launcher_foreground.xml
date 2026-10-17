@@ -12,5 +12,4 @@
         android:pathData="M30,70 L78,70 L78,85 L30,85 Z"
         android:strokeColor="#FFD700"
         android:strokeWidth="2" />
-    <text android:x="44" android:y="82" android:fillColor="#1A1A2E">CC</text>
 </vector>

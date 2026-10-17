@@ -5,6 +5,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -14,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 
@@ -35,7 +37,7 @@ fun MovieDetailScreen(
                 title = { Text(state.movie?.title ?: "Movie Detail") },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(Icons.Default.ArrowBack, "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, "Back")
                     }
                 },
                 actions = {
@@ -50,11 +52,15 @@ fun MovieDetailScreen(
             )
         },
         bottomBar = {
-            state.movie?.let { movie ->
+            val movie = state.movie
+            if (movie != null) {
                 Surface(shadowElevation = 8.dp) {
                     Button(
                         onClick = { onCompareClick(movieId) },
-                        modifier = Modifier.fillMaxWidth().padding(16.dp).height(52.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp)
+                            .height(52.dp),
                         colors = ButtonDefaults.buttonColors(
                             containerColor = MaterialTheme.colorScheme.primary
                         )
@@ -73,34 +79,49 @@ fun MovieDetailScreen(
                 .padding(padding)
                 .verticalScroll(rememberScrollState())
         ) {
-            // Poster
-            state.movie?.let { movie ->
+            val movie = state.movie
+            if (movie != null) {
+                // Poster
                 Box {
                     AsyncImage(
                         model = movie.bannerUrl.ifEmpty { movie.posterUrl },
                         contentDescription = movie.title,
-                        modifier = Modifier.fillMaxWidth().height(250.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(250.dp),
                         contentScale = ContentScale.Crop
                     )
-                    // Gradient overlay
                     Box(
-                        Modifier.fillMaxWidth().height(250.dp)
+                        Modifier
+                            .fillMaxWidth()
+                            .height(250.dp)
                     )
                 }
 
                 Column(Modifier.padding(16.dp)) {
-                    Text(movie.title, style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
+                    Text(
+                        movie.title,
+                        style = MaterialTheme.typography.headlineMedium,
+                        fontWeight = FontWeight.Bold
+                    )
                     Spacer(Modifier.height(4.dp))
 
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(Icons.Default.Star, null, tint = Color(0xFFFFD700), modifier = Modifier.size(18.dp))
-                        Text(" ${movie.rating}/10  · ${movie.certification}  · ${movie.durationMinutes} min",
-                            style = MaterialTheme.typography.bodyMedium)
+                        Icon(
+                            Icons.Default.Star,
+                            null,
+                            tint = Color(0xFFFFD700),
+                            modifier = Modifier.size(18.dp)
+                        )
+                        Text(
+                            " ${movie.rating}/10  · ${movie.certification}  · ${movie.durationMinutes} min",
+                            style = MaterialTheme.typography.bodyMedium
+                        )
                     }
 
                     Spacer(Modifier.height(8.dp))
                     Row {
-                        movie.genres.take(3).forEach { genre ->
+                        for (genre in movie.genres.take(3)) {
                             AssistChip(
                                 onClick = {},
                                 label = { Text(genre) },
@@ -110,21 +131,29 @@ fun MovieDetailScreen(
                     }
 
                     Spacer(Modifier.height(12.dp))
-                    Text("About the Film", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                    Text(
+                        "About the Film",
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold
+                    )
                     Spacer(Modifier.height(4.dp))
-                    Text(movie.synopsis.ifEmpty { "An exciting movie that you won't want to miss!" },
-                        style = MaterialTheme.typography.bodyMedium)
+                    Text(
+                        movie.synopsis.ifEmpty { "An exciting movie that you won't want to miss!" },
+                        style = MaterialTheme.typography.bodyMedium
+                    )
 
                     if (movie.languages.isNotEmpty()) {
                         Spacer(Modifier.height(12.dp))
-                        Text("Languages: ${movie.languages.joinToString(", ")}",
-                            style = MaterialTheme.typography.bodyMedium)
+                        Text(
+                            "Languages: ${movie.languages.joinToString(", ")}",
+                            style = MaterialTheme.typography.bodyMedium
+                        )
                     }
 
                     if (movie.formats.isNotEmpty()) {
                         Spacer(Modifier.height(4.dp))
                         Row {
-                            movie.formats.forEach { fmt ->
+                            for (fmt in movie.formats) {
                                 SuggestionChip(
                                     onClick = {},
                                     label = { Text(fmt) },
@@ -134,11 +163,14 @@ fun MovieDetailScreen(
                         }
                     }
                 }
-            } ?: run {
-                if (state.isLoading) {
-                    Box(Modifier.fillMaxWidth().height(300.dp), contentAlignment = Alignment.Center) {
-                        CircularProgressIndicator()
-                    }
+            } else if (state.isLoading) {
+                Box(
+                    Modifier
+                        .fillMaxWidth()
+                        .height(300.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator()
                 }
             }
         }

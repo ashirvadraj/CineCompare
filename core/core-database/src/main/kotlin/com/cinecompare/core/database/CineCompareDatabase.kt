@@ -10,7 +10,7 @@ import com.cinecompare.core.database.entities.ShowListingEntity
 @Database(
     entities = [MovieEntity::class, ShowListingEntity::class],
     version = 1,
-    exportSchema = true
+    exportSchema = false
 )
 abstract class CineCompareDatabase : RoomDatabase() {
     abstract fun movieDao(): MovieDao
